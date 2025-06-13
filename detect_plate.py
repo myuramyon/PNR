@@ -1,20 +1,34 @@
+# detect_plate.py
+
 import cv2
-import numpy as np
+import torch
 import easyocr
-from PIL import Image
+import pandas as pd
 
-reader = easyocr.Reader(['en'])
+def detect_plate(video_path):
+    reader = easyocr.Reader(['en'], gpu=False)
+    model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
 
-def detect_plate(model, image_path):
-    image = cv2.imread(image_path)
-    results = model([image])
-    boxes = results.xyxy[0]
+    cap = cv2.VideoCapture(video_path)
+    frame_num = 0
 
-    for *xyxy, conf, cls in boxes:
-        x1, y1, x2, y2 = map(int, xyxy)
-        plate_crop = image[y1:y2, x1:x2]
-        text_result = reader.readtext(plate_crop, detail=0)
-        cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 2)
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
 
-    pil_image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-    return pil_image, " ".join(text_result)
+        results = model(frame)
+        df = results.pandas().xyxy[0]
+
+        print(f"\nFrame {frame_num} Detections:")
+        print(df[['name', 'confidence', 'xmin', 'ymin', 'xmax', 'ymax']])
+
+        for _, row in df.iterrows():
+            xmin, ymin, xmax, ymax = map(int, [row['xmin'], row['ymin'], row['xmax'], row['ymax']])
+            plate_crop = frame[ymin:ymax, xmin:xmax]
+            text = reader.readtext(plate_crop)
+            print("Detected text:", [t[1] for t in text])
+
+        frame_num += 1
+
+    cap.release()
