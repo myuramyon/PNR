@@ -1,8 +1,30 @@
-streamlit
+# Core Frameworks
 torch
 torchvision
-easyocr
-opencv-python-headless
 numpy
+opencv-python
+opencv-python-headless  # For EasyOCR compatibility
+matplotlib
 pandas
+
+# YOLOv5 or YOLOv8 for vehicle and plate detection
+ultralytics>=  # For YOLOv8 (or install yolov5 repo manually)
+
+# OCR Libraries (choose one or both)
+easyocr
+paddleocr
+paddlepaddle
+
+# Streamlit interface
+streamlit
+
+# File handling and utilities
+tqdm
+scikit-image
 Pillow
+
+# Optional for Google Drive downloads (if model hosted there)
+gdown
+
+# For drawing labels and video overlays
+cvzone
