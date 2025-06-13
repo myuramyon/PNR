@@ -8,7 +8,7 @@ matplotlib
 pandas
 
 # YOLOv5 or YOLOv8 for vehicle and plate detection
-ultralytics>=  # For YOLOv8 (or install yolov5 repo manually)
+ultralytics  # For YOLOv8 (or install yolov5 repo manually)
 
 # OCR Libraries (choose one or both)
 easyocr
