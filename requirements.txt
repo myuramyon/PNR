@@ -1,8 +1,8 @@
-streamlit==1.32.2
-torch==2.2.1
-torchvision==0.17.1
-easyocr==1.6.2
-opencv-python-headless==4.7.0.72
-numpy==1.24.4
+streamlit
+torch
+torchvision
+easyocr
+opencv-python-headless
+numpy
 pandas
 Pillow
