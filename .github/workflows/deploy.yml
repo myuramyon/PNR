@@ -15,7 +15,7 @@ jobs:
       - name: 🔧 Setup Python (compatible with numpy==1.21.x)
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.12'
 
       - name: 📦 Install Dependencies
         run: |
