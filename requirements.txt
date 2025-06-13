@@ -3,6 +3,6 @@ torch==2.7.1
 torchvision==0.22.1
 easyocr==1.6.2
 opencv-python-headless==4.5.4.60
-numpy
+numpy==1.21.2
 pandas
 Pillow
